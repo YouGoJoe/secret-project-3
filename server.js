@@ -2,8 +2,8 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
-const keys = require("./config/keys")
-const mongoose = require("mongoose")
+const keys = require("./config/keys");
+const mongoose = require("mongoose");
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -12,21 +12,20 @@ if (process.env.NODE_ENV === "production") {
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function(req, res) {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-mongoose.connect(keys.MongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => {
-  app.listen(PORT, function() {
-    console.log(`🌎 ==> API server now on port ${PORT}!`);
+mongoose
+  .connect(keys.MongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`🌎 ==> API server now on port ${PORT}!`);
+    });
+  })
+  .catch(() => {
+    console.error("Cannot connect to db");
   });
-})
-.catch(() => {
-  console.error("Cannot connect to db")
-})
-
-
