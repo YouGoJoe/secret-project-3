@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const PORT = process.env.PORT || 6001;
+const PORT = process.env.PORT || 6003;
 const app = express();
 const keys = require("./config/keys")
 const mongoose = require("mongoose")
