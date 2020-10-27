@@ -1,25 +1,68 @@
-const { body, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
+const keys = require("../config/keys")
 const User = require("../models/User")
 const router = require("express").Router()
+const bycrpt = require("bcrypt")
+const JWT = require('jsonwebtoken')
 
-router.post('/signup', [
-  // username must be an email
-  body('email').isEmail(),
-  // password must be at least 5 chars long
-  body('password').isLength({ min: 5 })
-], (req, res) => {
-  // Finds the validation errors in this request and wraps them in an object with handy functions
+router.post("/signup", [
+  check('email', 'Please input a valid email')
+  .isEmail(),
+  check('password', 'Please input a password')
+  .isLength({min: 8}),
+  check('confirmPassword', 'Please confirm your password')
+  .not()
+  .isEmpty()
+], async (req, res) => {
+
   const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+  console.log(errors)
+  if(!errors.isEmpty()){
+      return res.status(400).json({
+          errors: errors.array()
+      })
   }
 
-  User.create({
-    username: req.body.username,
-    password: req.body.password
-  }).then(user => res.json(user));
-});
+  const {email, password, confirmPassword} = req.body
 
+  // Checking is password === confirmPassword
+  if(password !== confirmPassword){
+    return res.status(400).json({
+        errors: [
+            {
+                msg: "Passwords do not match"
+            }
+        ]
+    })
+  }
+
+  // Check if email already exists
+  const user = await User.findOne({email})
+
+  if(user){
+    return res.status(400).json({
+      errors: [
+          {
+              msg: "Email is already in use"
+          }
+      ]
+    })
+  }
+
+  const hashedPassword = await bycrpt.hash(password, 10)
+
+  User.create({
+    email,
+    password: hashedPassword
+  })
+
+  const token = await JWT.sign({email}, keys.JWTSecret, {expiresIn: 360000});
+
+  res.json({
+    token
+  })
+
+})
 
 
 module.exports = router

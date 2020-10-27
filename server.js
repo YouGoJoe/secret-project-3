@@ -9,7 +9,10 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+app.use(express.json())
+
 app.use("/auth", require("./routes/auth"))
+
 
 mongoose.connect(keys.MongoURI, {
   useNewUrlParser: true,
