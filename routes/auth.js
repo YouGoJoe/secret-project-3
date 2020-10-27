@@ -10,9 +10,9 @@ router.post("/signup", [
   .isEmail(),
   check('password', 'Please input a password')
   .isLength({min: 8}),
-  check('confirmPassword', 'Please confirm your password')
-  .not()
+  check('confirmPassword', 'Please input a password')
   .isEmpty()
+  .not(),
 ], async (req, res) => {
 
   const errors = validationResult(req);
@@ -64,5 +64,55 @@ router.post("/signup", [
 
 })
 
+
+router.post("/login", [
+  check('email', 'Please input a valid email')
+  .isEmail(),
+  check('password', 'Please input a password')
+  .not()
+  .isEmpty()
+], async (req, res) => {
+
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()){
+      return res.status(400).json({
+          errors: errors.array()
+      })
+  }
+
+  const { email, password } = req.body
+
+  const user = await User.findOne({email})
+
+  if(!user){
+    return res.status(400).json({
+      errors: [
+          {
+              msg: "Invalid credentials"
+          }
+      ]
+    })
+  }
+
+  let isMatch = await bycrpt.compare(password, user.password)
+
+  if(!isMatch){
+    return res.status(404).json({
+        errors: [
+            {
+                msg: "Invalid Credentials" 
+            }
+        ]
+    })
+  }
+
+  const token = await JWT.sign({email}, keys.JWTSecret, {expiresIn: 360000})
+
+  res.json({
+      token
+  })
+
+})
 
 module.exports = router
