@@ -12,6 +12,10 @@ app.use(express.json());
 
 app.use("/auth", require("./routes/auth"));
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+
 mongoose
   .connect(keys.MongoURI, {
     useNewUrlParser: true,
