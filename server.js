@@ -1,5 +1,5 @@
 const express = require("express");
-const PORT = process.env.PORT || 6003;
+const PORT = process.env.PORT || 3001;
 const app = express();
 const keys = require("./config/keys");
 const mongoose = require("mongoose");
