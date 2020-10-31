@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Card, Button, Col } from "react-bootstrap";
 
 import DrinkIcon from "./DrinkIcon";
@@ -11,8 +12,10 @@ const DrinkCard = ({ _id, name, type }) => (
       </Card.Header>
       <Card.Body>
         <Card.Subtitle>{name}</Card.Subtitle>
-        <Button variant="primary" href={`/drink/${_id}`}>
-          Rate
+        <Button variant="primary">
+          <Link style={{ color: "white" }} to={`/drink/${_id}`}>
+            Rate
+          </Link>
         </Button>
       </Card.Body>
     </Card>
