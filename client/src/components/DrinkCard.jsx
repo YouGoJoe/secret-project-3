@@ -1,0 +1,22 @@
+import React from "react";
+import { Card, Button, Col } from "react-bootstrap";
+
+import DrinkIcon from "./DrinkIcon";
+
+const DrinkCard = ({ _id, name, type }) => (
+  <Col className="mt-4" sm="4" md="3" lg="2">
+    <Card>
+      <Card.Header style={{ textAlign: "center" }}>
+        <DrinkIcon type={type} />
+      </Card.Header>
+      <Card.Body>
+        <Card.Subtitle>{name}</Card.Subtitle>
+        <Button variant="primary" href={`/drink/${_id}`}>
+          Rate
+        </Button>
+      </Card.Body>
+    </Card>
+  </Col>
+);
+
+export default DrinkCard;
