@@ -41,6 +41,7 @@
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
     "vars-on-top": "error",
-    "yoda": "error"
+    "yoda": "error",
+    "react/prop-types": "off"
   }
 }
