@@ -1,17 +1,24 @@
+const { check, validationResult } = require("express-validator");
 const router = require("express").Router();
 const db = require("../models");
 
 const allowList = ["coffee", "tea", "beer", "wine"];
 
-router.get("/id/:id", async (req, res) => {
-  const { id } = req.params;
+router.get(
+  "/id/:id",
+  [check("id", "malformed ID").isLength({ max: 24, min: 24 })],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
 
-  if (id.length !== 12) {
-    res.status(400).send("malformed ID");
+    const drink = await db.Drinks.findById(req.params.id);
+    res.json(drink);
   }
-  const drink = await db.Drinks.findById(id);
-  res.json(drink);
-});
+);
 
 router.get("/:type", async (req, res) => {
   const { type } = req.params;
