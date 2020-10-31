@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {createContext} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
@@ -6,9 +6,13 @@ import RegisterPage from "./pages/RegisterPage"
 import Nav from "./components/Nav";
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
+const ThemeContext = React.createContext('light');
+
+export const UserContext = createContext(null)
+
+export default function App() {
+  return (
+    <UserContext.Provider value={null}>
       <Router>
         <div>
           <Nav />
@@ -28,8 +32,7 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
-    );
-  }
+  </UserContext.Provider>
+  )
 }
 
-export default App;
