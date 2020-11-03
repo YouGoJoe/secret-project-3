@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button } from "react-bootstrap"
+import axios from "axios"
 
 export default function RegisterPage() {
 
@@ -16,8 +17,28 @@ export default function RegisterPage() {
         })
     }
 
+    const handleSubmit = async (e) => {
+
+        e.preventDefault()
+
+        let JWT = await axios.post("/auth/signup", {
+            email: userInput.email,
+            password: userInput.password,
+            confirmPassword: userInput.confirmPassword
+        })
+
+        localStorage.setItem("token", JWT.data.token)
+
+        setUserInput({
+            email: "",
+            password: "",
+            confirmPassword: ""
+        })
+
+    }
+
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control 

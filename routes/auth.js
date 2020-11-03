@@ -10,11 +10,12 @@ router.post(
   [
     check("email", "Please input a valid email").isEmail(),
     check("password", "Please input a password").isLength({ min: 8 }),
-    check("confirmPassword", "Please input a password").isEmpty().not(),
+    check("confirmPassword", "Please input a password").not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log(errors)
       return res.status(400).json({
         errors: errors.array(),
       });
