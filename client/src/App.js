@@ -1,16 +1,14 @@
-import React, {createContext} from "react";
+import React, { createContext } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
-import RegisterPage from "./pages/RegisterPage"
+import RegisterPage from "./pages/RegisterPage";
 import Nav from "./components/Nav";
 import SearchPage from "./components/SearchPage";
 import DrinkPage from "./components/DrinkPage";
 import "./App.css";
 
-const ThemeContext = React.createContext('light');
-
-export const UserContext = createContext(null)
+export const UserContext = createContext(null);
 
 export default function App() {
   return (
@@ -20,11 +18,7 @@ export default function App() {
           <Nav />
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route
-              exact
-              path="/register"
-              component={() => <RegisterPage />}
-            />
+            <Route exact path="/register" component={() => <RegisterPage />} />
             <Route
               exact
               path="/login"
@@ -36,7 +30,6 @@ export default function App() {
           </Switch>
         </div>
       </Router>
-  </UserContext.Provider>
-  )
+    </UserContext.Provider>
+  );
 }
-
