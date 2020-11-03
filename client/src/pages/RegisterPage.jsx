@@ -21,11 +21,7 @@ export default function RegisterPage() {
 
         e.preventDefault()
 
-        let JWT = await axios.post("/auth/signup", {
-            email: userInput.email,
-            password: userInput.password,
-            confirmPassword: userInput.confirmPassword
-        })
+        let JWT = await axios.post("/auth/signup", ...userInput)
 
         localStorage.setItem("token", JWT.data.token)
 
@@ -75,9 +71,6 @@ export default function RegisterPage() {
                 />
             </Form.Group>
 
-            <Form.Group controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
             <Button variant="primary" type="submit">
                 Submit
             </Button>
