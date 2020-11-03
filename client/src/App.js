@@ -1,25 +1,24 @@
-import React, { Component } from "react";
+import React, { createContext } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./pages/LandingPage";
+import RegisterPage from "./pages/RegisterPage";
 import Nav from "./components/Nav";
 import SearchPage from "./components/SearchPage";
 import DrinkPage from "./components/DrinkPage";
 import "./App.css";
 
-class App extends Component {
-  render() {
-    return (
+export const UserContext = createContext(null);
+
+export default function App() {
+  return (
+    <UserContext.Provider value={null}>
       <Router>
         <div>
           <Nav />
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route
-              exact
-              path="/register"
-              component={() => <div>Sign up placeholder</div>}
-            />
+            <Route exact path="/register" component={() => <RegisterPage />} />
             <Route
               exact
               path="/login"
@@ -31,8 +30,6 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
-    );
-  }
+    </UserContext.Provider>
+  );
 }
-
-export default App;
