@@ -6,6 +6,7 @@ import Nav from "./components/Nav";
 import SearchPage from "./components/SearchPage";
 import DrinkPage from "./components/DrinkPage";
 import "./App.css";
+import RegisterPage from "./pages/RegisterPage";
 
 class App extends Component {
   render() {
@@ -15,11 +16,7 @@ class App extends Component {
           <Nav />
           <Switch>
             <Route exact path="/" component={LandingPage} />
-            <Route
-              exact
-              path="/register"
-              component={() => <div>Sign up placeholder</div>}
-            />
+            <Route exact path="/register" component={() => <RegisterPage />} />
             <Route
               exact
               path="/login"
