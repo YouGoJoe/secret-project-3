@@ -11,7 +11,7 @@ import "./App.css";
 export const UserContext = createContext(null);
 
 if(localStorage.getItem("token")){
-  
+  setAuthToken(localStorage.getItem("token"))
 }
 
 export default function App() {
