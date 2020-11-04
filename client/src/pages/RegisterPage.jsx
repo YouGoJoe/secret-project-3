@@ -21,7 +21,11 @@ export default function RegisterPage() {
 
         e.preventDefault()
 
-        let JWT = await axios.post("/auth/signup", ...userInput)
+        let JWT = await axios.post("/auth/signup", {
+            email: userInput.email,
+            password: userInput.password,
+            confirmPassword: userInput.confirmPassword
+        })
 
         localStorage.setItem("token", JWT.data.token)
 
