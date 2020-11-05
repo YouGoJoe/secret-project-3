@@ -49,17 +49,19 @@ router.post(
 
     const hashedPassword = await bycrpt.hash(password, 10);
 
-    await User.create({
+    let userToAdd = await User.create({
       email,
       password: hashedPassword,
     });
 
-    const token = await JWT.sign({ email }, keys.JWTSecret, {
+    let id = userToAdd['_id']
+
+    const token = await JWT.sign({ id }, keys.JWTSecret, {
       expiresIn: 360000,
     });
 
     res.json({
-      token,
+      token
     });
   }
 );
@@ -110,14 +112,14 @@ router.post(
     });
 
     res.json({
-      token,
+      token
     });
   }
 );
 
 router.get("/", checkAuth, async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.user });
+    const user = await User.findOne({ _id: req.user });
     res.json(user);
   } catch (error) {
     return res.status(400).json({

@@ -5,8 +5,6 @@ import {UserContext} from "../App"
 const Navigation = () => {
 
   const me = useContext(UserContext)
-
-  console.log(me, "dickface")
   
   return (
     <Navbar bg="dark" variant="dark" expand="sm">
