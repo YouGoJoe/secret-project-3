@@ -49,19 +49,19 @@ router.post(
 
     const hashedPassword = await bycrpt.hash(password, 10);
 
-    let userToAdd = await User.create({
+    const userToAdd = await User.create({
       email,
       password: hashedPassword,
     });
 
-    let id = userToAdd['_id']
+    const id = userToAdd._id;
 
     const token = await JWT.sign({ id }, keys.JWTSecret, {
       expiresIn: 360000,
     });
 
     res.json({
-      token
+      token,
     });
   }
 );
@@ -112,7 +112,7 @@ router.post(
     });
 
     res.json({
-      token
+      token,
     });
   }
 );
