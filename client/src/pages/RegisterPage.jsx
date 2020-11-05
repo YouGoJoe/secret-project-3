@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button } from "react-bootstrap"
 import axios from "axios"
 import setAuthToken from '../utils/setAuthToken'
+import {} from "../App"
 
 export default function RegisterPage() {
 
@@ -37,6 +38,8 @@ export default function RegisterPage() {
         })
 
         setAuthToken(JWT)
+
+
 
     }
 

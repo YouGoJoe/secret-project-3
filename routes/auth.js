@@ -4,6 +4,7 @@ const User = require("../models/User");
 const router = require("express").Router();
 const bycrpt = require("bcrypt");
 const JWT = require("jsonwebtoken");
+const checkAuth = require("../middleware/checkAuth");
 
 router.post(
   "/signup",
@@ -115,6 +116,22 @@ router.post(
 );
 
 
-router.get("/", )
+router.get("/", checkAuth, async (req, res) => {
+  
+  try {
+    const user = await User.findOne({ email: req.user });
+    res.json(user)
+
+  } catch (error) {
+    return res.status(400).json({
+      errors: [
+        {
+          msg: "User with that email cannot be found",
+        },
+      ],
+    });
+  }
+
+})
 
 module.exports = router;

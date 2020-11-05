@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import Nav from "./components/Nav";
 import SearchPage from "./components/SearchPage";
 import DrinkPage from "./components/DrinkPage";
+import setAuthToken from "./utils/setAuthToken"
 import "./App.css";
 
 export const UserContext = createContext(null);
