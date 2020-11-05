@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import LandingPage from "./pages/LandingPage";
@@ -16,8 +16,9 @@ if(localStorage.getItem("token")){
 }
 
 export default function App() {
+  const [user, setUser] = useState(null);
   return (
-    <UserContext.Provider value={null}>
+    <UserContext.Provider value={{user, setUser}}>
       <Router>
         <div>
           <Nav />

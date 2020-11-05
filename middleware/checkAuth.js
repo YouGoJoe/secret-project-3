@@ -3,6 +3,7 @@ const keys = require("../config/keys")
 
 module.exports = async (req, res, next) => {
     const token = req.header('x-auth-token')
+    console.log(token)
 
     // CHECK IF WE EVEN HAVE A TOKEN
     if(!token){
@@ -20,10 +21,10 @@ module.exports = async (req, res, next) => {
         req.user = user.email
         next()
     } catch (error) {
-        res.status(500).json({
+        res.status(400).json({
             errors: [
                 {
-                    msg: 'Something is wrong with our server'
+                    msg: "jwt is not good"
                 }
             ]
         })

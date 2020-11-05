@@ -126,7 +126,7 @@ router.get("/", checkAuth, async (req, res) => {
     return res.status(400).json({
       errors: [
         {
-          msg: "User with that email cannot be found",
+          msg: "Bogus JWT",
         },
       ],
     });
