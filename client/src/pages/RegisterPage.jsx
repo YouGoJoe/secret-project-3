@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Form, Button } from "react-bootstrap"
 import axios from "axios"
+import setAuthToken from '../utils/setAuthToken'
+import {UserContext} from "../App"
 
 export default function RegisterPage() {
 
@@ -9,6 +11,8 @@ export default function RegisterPage() {
         password: "",
         confirmPassword: ""
     })
+
+    const me = useContext(UserContext)
 
     const handleChange = (e) => {
         setUserInput({
@@ -21,7 +25,11 @@ export default function RegisterPage() {
 
         e.preventDefault()
 
-        let JWT = await axios.post("/auth/signup", ...userInput)
+        let JWT = await axios.post("/auth/signup", {
+            email: userInput.email,
+            password: userInput.password,
+            confirmPassword: userInput.confirmPassword
+        })
 
         localStorage.setItem("token", JWT.data.token)
 
@@ -30,6 +38,12 @@ export default function RegisterPage() {
             password: "",
             confirmPassword: ""
         })
+
+        setAuthToken(JWT.data.token)
+
+        const user = await axios.get("/auth")
+
+        me.setUser(user.data)
 
     }
 
