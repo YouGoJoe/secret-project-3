@@ -4,7 +4,6 @@ import axios from "axios"
 import setAuthToken from '../utils/setAuthToken'
 import {UserContext} from "../App"
 import { useHistory } from "react-router-dom";
-import {Redirect} from "react-router-dom"
 
 export default function RegisterPage() {
     const history = useHistory();
