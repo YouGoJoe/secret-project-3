@@ -3,9 +3,10 @@ import { Form, Button } from "react-bootstrap"
 import axios from "axios"
 import setAuthToken from '../utils/setAuthToken'
 import {UserContext} from "../App"
+import { useHistory } from "react-router-dom";
 
 export default function RegisterPage() {
-
+    const history = useHistory();
     const [userInput, setUserInput] = useState({
         email: "",
         password: "",
@@ -45,6 +46,7 @@ export default function RegisterPage() {
 
         me.setUser(user.data)
 
+        history.push("/browse")
     }
 
     return (

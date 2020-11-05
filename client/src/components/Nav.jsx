@@ -18,7 +18,7 @@ const Navigation = () => {
               <Nav.Link href="/login">Log In</Nav.Link>
             </>
           ) : (
-            <li>{me.user.email}</li>
+            <li style={{color: "white"}} >{me.user.email}</li>
           )}
 
         </Nav>
