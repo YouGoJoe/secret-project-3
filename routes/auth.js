@@ -115,13 +115,10 @@ router.post(
   }
 );
 
-
 router.get("/", checkAuth, async (req, res) => {
-  
   try {
     const user = await User.findOne({ email: req.user });
-    res.json(user)
-
+    res.json(user);
   } catch (error) {
     return res.status(400).json({
       errors: [
@@ -131,7 +128,6 @@ router.get("/", checkAuth, async (req, res) => {
       ],
     });
   }
-
-})
+});
 
 module.exports = router;
