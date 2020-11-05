@@ -31,8 +31,6 @@ export default function RegisterPage() {
             confirmPassword: userInput.confirmPassword
         })
 
-        console.log(JWT.data.token)
-
         localStorage.setItem("token", JWT.data.token)
 
         setUserInput({
@@ -45,8 +43,7 @@ export default function RegisterPage() {
 
         const user = await axios.get("/auth")
 
-        console.log(me.user)
-        console.log(me.setUser)
+        me.setUser(user.data)
 
     }
 
