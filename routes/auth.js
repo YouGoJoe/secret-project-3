@@ -119,7 +119,7 @@ router.post(
 
 router.get("/", checkAuth, async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.user });
+    const user = await User.findOne({ _id: req.user }).populate("reviews");
     res.json(user);
   } catch (error) {
     return res.status(400).json({

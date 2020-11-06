@@ -4,9 +4,21 @@ import { Card, Button, Col } from "react-bootstrap";
 
 import DrinkIcon from "./DrinkIcon";
 
-const DrinkCard = ({ _id, name, type }) => (
+const DrinkCard = ({ _id, name, type, star }) => (
   <Col className="mt-4" sm="4" md="3" lg="2">
     <Card>
+      {star && (
+        <i
+          className="fas fa-star"
+          style={{
+            position: "absolute",
+            right: 0,
+            marginRight: "4px",
+            marginTop: "4px",
+            color: "fuchsia",
+          }}
+        ></i>
+      )}
       <Card.Header style={{ textAlign: "center" }}>
         <DrinkIcon type={type} />
       </Card.Header>
