@@ -1,24 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Card,
-  Col,
-  Container,
-  Row,
-  Alert,
-  Badge,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Card, Col, Container, Row, Alert, Badge } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
 import DrinkIcon from "./DrinkIcon";
+import DrinkTagForm from "./DrinkTagForm";
+import DrinkReviewForm from "./DrinkReviewForm";
 
 const DrinkPage = () => {
   const [drink, setDrink] = useState();
   const [error, setError] = useState();
   const { pathname } = useLocation();
-  const ref = useRef();
   const [, id] = pathname.split("/drink/");
 
   useEffect(() => {
@@ -28,17 +20,7 @@ const DrinkPage = () => {
       .catch(() => setError("An error has occurred :("));
   }, []);
 
-  const setTag = (event) => {
-    event.preventDefault();
-    const tag = ref.current.value.toLowerCase().split(" ").join("-");
-
-    // optimistic update
-    setDrink({ ...drink, tags: [...drink.tags, tag] });
-    axios.post(`/api/drinks/id/${id}/tag`, { tag });
-
-    // clear the input
-    ref.current.value = "";
-  };
+  const onTagSet = (tag) => setDrink({ ...drink, tags: [...drink.tags, tag] });
 
   return (
     <Container>
@@ -60,16 +42,8 @@ const DrinkPage = () => {
                   ))}
                 </Card.Body>
               </Card>
-              <Form className="mt-2" onSubmit={setTag}>
-                <Form.Row className="align-items-center">
-                  <Col>
-                    <Form.Control ref={ref} placeholder="fruity" />
-                  </Col>
-                  <Col>
-                    <Button onClick={setTag}>Tag</Button>
-                  </Col>
-                </Form.Row>
-              </Form>
+              <DrinkTagForm onTagSet={onTagSet} />
+              <DrinkReviewForm />
             </div>
           )}
         </Col>
