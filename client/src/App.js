@@ -1,5 +1,6 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import axios from "axios";
 
 import LandingPage from "./pages/LandingPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -17,6 +18,16 @@ if (localStorage.getItem("token")) {
 
 export default function App() {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // if you're logged in already, fetch your data
+    if (localStorage.getItem("token")) {
+      axios.get("/auth").then(({ data }) => {
+        setUser(data);
+      });
+    }
+  }, []);
+
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Router>
