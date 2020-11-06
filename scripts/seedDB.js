@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const db = require("../models");
 const teas = require("./teas.json");
 const coffees = require("./coffees.json");
+const beers = require("./beers.json")
+const beers = require("./wine.json")
 const keys = require("../config/keys");
 
 mongoose.connect(keys.MongoURI, {
@@ -12,6 +14,8 @@ mongoose.connect(keys.MongoURI, {
 const allDrinks = [
   ...teas.map((tea) => ({ name: tea, type: "tea", tags: [] })),
   ...coffees.map((coffee) => ({ name: coffee, type: "coffee", tags: [] })),
+  ...beers.map((beer) => ({ name: beer, type: "beer", tags: [] })),
+  ...wines.map((wine) => ({ name: wine, type: "wine", tags: [] })),
 ];
 
 db.Drinks.deleteMany({})
