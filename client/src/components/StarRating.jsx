@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-const StarRating = ({ onClick }) => {
+const StarRating = (props) => {
   const [ratingHover, setHoverRating] = useState(0);
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState(props.rating);
 
   const onButtonClick = (index) => {
     const rateValue = index + 1;
@@ -12,7 +12,7 @@ const StarRating = ({ onClick }) => {
     } else {
       setRating(rateValue);
     }
-    onClick(rateValue);
+    props.onClick(rateValue);
   };
 
   return (

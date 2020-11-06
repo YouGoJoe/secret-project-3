@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Card, Col, Container, Row, Alert, Badge } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
+import { UserContext } from "../App";
 import DrinkIcon from "./DrinkIcon";
 import DrinkTagForm from "./DrinkTagForm";
 import DrinkReviewForm from "./DrinkReviewForm";
 
 const DrinkPage = () => {
   const [drink, setDrink] = useState();
+  const [review, setReview] = useState();
   const [error, setError] = useState();
   const { pathname } = useLocation();
   const [, id] = pathname.split("/drink/");
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
+    setReview(user.reviews.find((review) => review.drink === id));
     axios
       .get(`/api/drinks/id/${id}`)
       .then(({ data }) => setDrink(data))
@@ -43,7 +47,7 @@ const DrinkPage = () => {
                 </Card.Body>
               </Card>
               <DrinkTagForm onTagSet={onTagSet} />
-              <DrinkReviewForm />
+              <DrinkReviewForm review={review} />
             </div>
           )}
         </Col>

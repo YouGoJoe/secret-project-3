@@ -23,7 +23,7 @@ export default function App() {
     // if you're logged in already, fetch your data
     if (localStorage.getItem("token")) {
       axios.get("/auth").then(({ data }) => {
-        setUser(data);
+        setUser({ ...data, loggedIn: true });
       });
     }
   }, []);
@@ -41,8 +41,12 @@ export default function App() {
               path="/login"
               component={() => <div>Login placeholder</div>}
             />
-            <Route exact path="/browse" component={SearchPage} />
-            <Route exact path="/drink/:id" component={DrinkPage} />
+            {user && user.loggedIn && (
+              <>
+                <Route exact path="/browse" component={SearchPage} />
+                <Route exact path="/drink/:id" component={DrinkPage} />
+              </>
+            )}
             <Route component={() => <div>404 Not found</div>} />
           </Switch>
         </div>
