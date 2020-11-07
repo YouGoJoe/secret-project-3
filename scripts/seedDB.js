@@ -3,7 +3,7 @@ const db = require("../models");
 const teas = require("./teas.json");
 const coffees = require("./coffees.json");
 const beers = require("./beers.json");
-const wines = require("./wine.json");
+const wines = require("./wines.json");
 const keys = require("../config/keys");
 
 mongoose.connect(keys.MongoURI, {
