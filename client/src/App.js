@@ -4,6 +4,7 @@ import axios from "axios";
 
 import LandingPage from "./pages/LandingPage";
 import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
 import Nav from "./components/Nav";
 import SearchPage from "./components/SearchPage";
 import DrinkPage from "./components/DrinkPage";
@@ -36,11 +37,7 @@ export default function App() {
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route exact path="/register" component={() => <RegisterPage />} />
-            <Route
-              exact
-              path="/login"
-              component={() => <div>Login placeholder</div>}
-            />
+            <Route exact path="/login" component={LoginPage} />
             {user && user.loggedIn && (
               <>
                 <Route exact path="/browse" component={SearchPage} />
