@@ -107,7 +107,9 @@ router.post(
       });
     }
 
-    const token = await JWT.sign({ email }, keys.JWTSecret, {
+    const id = user._id;
+
+    const token = await JWT.sign({ id }, keys.JWTSecret, {
       expiresIn: 360000,
     });
 
